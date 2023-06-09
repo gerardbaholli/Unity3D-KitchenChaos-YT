@@ -131,6 +131,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6154181067899703296, guid: 3340fd4f0a6134f2c9ff4319cfa00dd7,
+        type: 3}
+      propertyPath: tomatoPrefab
+      value: 
+      objectReference: {fileID: 8896453689390768119, guid: ad48c676e803e4d72802b4a0a09a575e,
+        type: 3}
+    - target: {fileID: 6154181067899703296, guid: 3340fd4f0a6134f2c9ff4319cfa00dd7,
+        type: 3}
+      propertyPath: kitchenObjectSO
+      value: 
+      objectReference: {fileID: 11400000, guid: e6fae6b9f5b744deeb29e9a844d46105,
+        type: 2}
     - target: {fileID: 7697659744328464116, guid: 3340fd4f0a6134f2c9ff4319cfa00dd7,
         type: 3}
       propertyPath: m_Name
