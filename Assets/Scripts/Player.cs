@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IKitchenObjectParent
 {
 
+
     public static Player Instance { get; private set; }
+
+
 
     public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
     public class OnSelectedCounterChangedEventArgs : EventArgs
@@ -14,35 +17,38 @@ public class Player : MonoBehaviour
         public ClearCounter selectedCounter;
     }
 
+
     [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private LayerMask counterLayerMask;
+    [SerializeField] private GameInput gameInput;
+    [SerializeField] private LayerMask countersLayerMask;
+    [SerializeField] private Transform kitchenObjectHoldPoint;
+
 
     private bool isWalking;
     private Vector3 lastInteractDir;
     private ClearCounter selectedCounter;
+    private KitchenObject kitchenObject;
 
 
     private void Awake()
     {
         if (Instance != null)
         {
-            Debug.LogError("There's more than one Player! " + transform + " - " + Instance);
-            Destroy(gameObject);
-            return;
+            Debug.LogError("There is more than one Player instance");
         }
         Instance = this;
     }
 
     private void Start()
     {
-        GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnInteractAction += GameInput_OnInteractAction;
     }
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e)
     {
         if (selectedCounter != null)
         {
-            selectedCounter.Interact();
+            selectedCounter.Interact(this);
         }
     }
 
@@ -59,7 +65,8 @@ public class Player : MonoBehaviour
 
     private void HandleInteractions()
     {
-        Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
         if (moveDir != Vector3.zero)
@@ -68,11 +75,11 @@ public class Player : MonoBehaviour
         }
 
         float interactDistance = 2f;
-
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, counterLayerMask))
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, countersLayerMask))
         {
-            if (raycastHit.transform.TryGetComponent<ClearCounter>(out ClearCounter clearCounter))
+            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
+                // Has ClearCounter
                 if (clearCounter != selectedCounter)
                 {
                     SetSelectedCounter(clearCounter);
@@ -81,19 +88,19 @@ public class Player : MonoBehaviour
             else
             {
                 SetSelectedCounter(null);
+
             }
         }
         else
         {
             SetSelectedCounter(null);
         }
-
-
     }
 
     private void HandleMovement()
     {
-        Vector2 inputVector = GameInput.Instance.GetMovementVectorNormalized();
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
         float moveDistance = moveSpeed * Time.deltaTime;
@@ -149,10 +156,35 @@ public class Player : MonoBehaviour
     {
         this.selectedCounter = selectedCounter;
 
-        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs()
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
             selectedCounter = selectedCounter
         });
+    }
+
+    public Transform GetKitchenObjectFollowTransform()
+    {
+        return kitchenObjectHoldPoint;
+    }
+
+    public void SetKitchenObject(KitchenObject kitchenObject)
+    {
+        this.kitchenObject = kitchenObject;
+    }
+
+    public KitchenObject GetKitchenObject()
+    {
+        return kitchenObject;
+    }
+
+    public void ClearKitchenObject()
+    {
+        kitchenObject = null;
+    }
+
+    public bool HasKitchenObject()
+    {
+        return kitchenObject != null;
     }
 
 }
