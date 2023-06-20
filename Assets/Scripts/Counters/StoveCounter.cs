@@ -207,7 +207,6 @@ public class StoveCounter : BaseCounter, IHasProgress
         {
             if (burningRecipeSO.input == inputKitchenObjectSO)
             {
-                Debug.Log(burningRecipeSO.burningTimerMax);
                 return burningRecipeSO;
             }
         }
