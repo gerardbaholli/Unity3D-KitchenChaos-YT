@@ -8809,7 +8809,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1069210937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13471,7 +13471,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1734302266}
-    PlayerPrefab: {fileID: 3211708860437681741, guid: 406cae997e83a436caa02f7e2fa5d7ec,
+    PlayerPrefab: {fileID: 4722731376577517318, guid: 406cae997e83a436caa02f7e2fa5d7ec,
       type: 3}
     Prefabs:
       NetworkPrefabsLists: []
@@ -16052,6 +16052,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 344770104781183713, guid: 406cae997e83a436caa02f7e2fa5d7ec,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 489407799462602148, guid: 406cae997e83a436caa02f7e2fa5d7ec,
         type: 3}
       propertyPath: gameInput
@@ -16061,6 +16066,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3726217434930920058, guid: 406cae997e83a436caa02f7e2fa5d7ec,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1802722100
       objectReference: {fileID: 0}
     - target: {fileID: 7120567367900348717, guid: 406cae997e83a436caa02f7e2fa5d7ec,
         type: 3}

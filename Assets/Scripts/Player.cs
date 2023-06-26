@@ -8,7 +8,7 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 {
 
 
-    public static Player Instance { get; private set; }
+    //public static Player Instance { get; private set; }
 
 
 
@@ -64,6 +64,11 @@ public class Player : NetworkBehaviour, IKitchenObjectParent
 
     private void Update()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
+
         HandleMovement();
         HandleInteractions();
     }
