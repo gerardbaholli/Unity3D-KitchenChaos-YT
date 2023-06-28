@@ -26,7 +26,7 @@ public class KitchenGameManager : MonoBehaviour
 
 
     private State state;
-    private float countdownToStartTimer = 1f;
+    private float countdownToStartTimer = 5f;
     private float gamePlayingTimer;
     private float gamePlayingTimerMax = 300f;
     private bool isGamePaused = false;
@@ -47,6 +47,7 @@ public class KitchenGameManager : MonoBehaviour
         // DEBUG TRIGGER GAME START AUTOMATICALLY
         state = State.CountdownToStart;
         OnStateChanged?.Invoke(this, EventArgs.Empty);
+        Debug.Log("OnStateChanged?.Invoke on KGM Start " + state.ToString());
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e)
@@ -73,9 +74,11 @@ public class KitchenGameManager : MonoBehaviour
                 countdownToStartTimer -= Time.deltaTime;
                 if (countdownToStartTimer < 0f)
                 {
+                    Debug.Log("State.CountdownToStart");
                     state = State.GamePlaying;
                     gamePlayingTimer = gamePlayingTimerMax;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
+                    Debug.Log("OnStateChanged?.Invoke on KGM Update " + state.ToString());
                 }
                 break;
             case State.GamePlaying:
@@ -98,6 +101,7 @@ public class KitchenGameManager : MonoBehaviour
 
     public bool IsCountdownToStartActive()
     {
+        Debug.Log("IsCountdownToStartActive " + (state == State.CountdownToStart) + " " + state.ToString());
         return state == State.CountdownToStart;
     }
 
