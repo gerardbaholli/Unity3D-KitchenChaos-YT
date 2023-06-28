@@ -16,12 +16,9 @@ public class ContainerCounter : BaseCounter
 
     public override void Interact(Player player)
     {
-        Debug.Log("ContainerCounter_Interact");
-
         if (!player.HasKitchenObject())
         {
             // Player is not carrying anything
-            Debug.Log("Player is not carrying anything");
             KitchenObject.SpawnKitchenObject(kitchenObjectSO, player);
 
             InteractLogicServerRpc();
@@ -31,14 +28,12 @@ public class ContainerCounter : BaseCounter
     [ServerRpc(RequireOwnership = false)]
     private void InteractLogicServerRpc()
     {
-        Debug.Log("ContainerCounter_InteractLogicServerRpc");
         InteractLogicClientRpc();
     }
 
     [ClientRpc]
     private void InteractLogicClientRpc()
     {
-        Debug.Log("ContainerCounter_InteractLogicClientRpc");
         OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
     }
 

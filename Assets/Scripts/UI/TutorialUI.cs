@@ -31,10 +31,8 @@ public class TutorialUI : MonoBehaviour
 
     private void KitchenGameManager_OnStateChanged(object sender, System.EventArgs e)
     {
-        Debug.Log("KitchenGameManager_OnStateChanged called " + KitchenGameManager.Instance.IsCountdownToStartActive());
         if (KitchenGameManager.Instance.IsCountdownToStartActive())
         {
-            Debug.Log("KitchenGameManager_OnStateChanged");
             Hide();
         }
     }
