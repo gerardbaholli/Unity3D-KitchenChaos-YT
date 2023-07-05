@@ -4,7 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyCreateUI : MonoBehaviour {
+public class LobbyCreateUI : MonoBehaviour
+{
 
 
     [SerializeField] private Button closeButton;
@@ -14,27 +15,36 @@ public class LobbyCreateUI : MonoBehaviour {
 
 
 
-    private void Awake() {
-        createPublicButton.onClick.AddListener(() => {
+    private void Awake()
+    {
+        createPublicButton.onClick.AddListener(() =>
+        {
             KitchenGameLobby.Instance.CreateLobby(lobbyNameInputField.text, false);
         });
-        createPrivateButton.onClick.AddListener(() => {
+        createPrivateButton.onClick.AddListener(() =>
+        {
             KitchenGameLobby.Instance.CreateLobby(lobbyNameInputField.text, true);
         });
-        closeButton.onClick.AddListener(() => {
+        closeButton.onClick.AddListener(() =>
+        {
             Hide();
         });
     }
 
-    private void Start() {
+    private void Start()
+    {
         Hide();
     }
 
-    public void Show() {
+    public void Show()
+    {
         gameObject.SetActive(true);
+
+        createPublicButton.Select();
     }
 
-    private void Hide() {
+    private void Hide()
+    {
         gameObject.SetActive(false);
     }
 
